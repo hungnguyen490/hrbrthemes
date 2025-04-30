@@ -59,6 +59,8 @@ Palettes/Named Colors:
 - `ft_cols`: FT color palette
 - `ft_pal`:  A bright qualitative color palette
 - `ft_text_col`: FT color palette
+- `bit12`: A vector of 12 vibrant colors for categorical data
+- `bit12_extended`: List of 12 color palettes with 9 shades each for continuous interpolation
 
 Fonts:
 
@@ -84,6 +86,17 @@ Flexoki Color Scales:
 - `scale_fill_flexoki_light`: Discrete Fill Scale Using Flexoki Light Colors
 - `scale_fill_flexoki_light_distiller`: Distiller Fill Scale Using Flexoki Light Colors
 - `scale_fill_flexoki_light_spectrum`: Distiller Fill Scale Across All Flexoki Light Colors
+
+Bit12 Color Scales:
+
+- `scale_color_bit12`: Discrete Color Scale Using Bit12 Colors
+- `scale_fill_bit12`: Discrete Fill Scale Using Bit12 Colors
+- `scale_color_bit12_continuous`: Continuous Color Scale Using Bit12 Colors
+- `scale_fill_bit12_continuous`: Continuous Fill Scale Using Bit12 Colors
+- `scale_color_bit12_distiller`: Distiller Color Scale Using Bit12 Colors
+- `scale_fill_bit12_distiller`: Distiller Fill Scale Using Bit12 Colors
+- `scale_color_bit12_spectrum`: Distiller Color Scale Across All Bit12 Colors
+- `scale_fill_bit12_spectrum`: Distiller Fill Scale Across All Bit12 Colors
 
 Flexoki Palettes:
 
@@ -306,6 +319,47 @@ names(flexoki_dark) |>
     title="Flexoki Continuous Color Scales",
     subtitle="All 8 continuous color palettes",
     caption="Using scale_fill_flexoki_continuous()",
+    theme = theme_ipsum(grid="")
+  )
+```
+
+### Bit12 Color Scales
+
+The Bit12 color system provides a set of 12 distinct colors optimized for data visualization.
+
+```{r bit12-01}
+# Discrete colors example
+ggplot(mpg, aes(class, fill=class)) +
+  geom_bar() +
+  labs(title="Bit12 Color Palette",
+       subtitle="A vibrant 12-color categorical palette",
+       caption="Using scale_fill_bit12()") +
+  theme_ipsum() +
+  scale_fill_bit12() +
+  theme(legend.position="none")
+```
+
+```{r bit12-02, fig.width=10, fig.height=6}
+library(patchwork)
+
+# Taking a subset of the palette for this example
+names(bit12)[c(1,3,5,7,9,11)] |> 
+  map(\(.p) {
+    ggplot(grad_df, aes(x, y, fill=z)) +
+      geom_tile() +
+      scale_fill_bit12_continuous(palette = .p) +
+      labs(
+        x = NULL, y = NULL, title = .p
+      ) +
+      theme_ipsum(grid="") +
+      theme(legend.position = "none")
+  }) |> 
+  do.call(what = "wrap_plots") +
+  plot_layout(ncol = 3) +
+  plot_annotation(
+    title="Bit12 Continuous Color Scales",
+    subtitle="Selected continuous color palettes",
+    caption="Using scale_fill_bit12_continuous()",
     theme = theme_ipsum(grid="")
   )
 ```

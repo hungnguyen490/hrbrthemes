@@ -6,7 +6,7 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 [![Signed
 by](https://img.shields.io/badge/Keybase-Verified-brightgreen.svg)](https://keybase.io/hrbrmstr)
 ![Signed commit
-%](https://img.shields.io/badge/Signed_Commits-6%25-lightgrey.svg)
+%](https://img.shields.io/badge/Signed_Commits-7%25-lightgrey.svg)
 
 [![cran
 checks](https://cranchecks.info/badges/worst/hrbrthemes.png)](https://cranchecks.info/pkgs/hrbrthemes)
@@ -77,6 +77,9 @@ Palettes/Named Colors:
 - `ft_cols`: FT color palette
 - `ft_pal`: A bright qualitative color palette
 - `ft_text_col`: FT color palette
+- `bit12`: A vector of 12 vibrant colors for categorical data
+- `bit12_extended`: List of 12 color palettes with 9 shades each for
+  continuous interpolation
 
 Fonts:
 
@@ -109,6 +112,22 @@ Flexoki Color Scales:
   Flexoki Light Colors
 - `scale_fill_flexoki_light_spectrum`: Distiller Fill Scale Across All
   Flexoki Light Colors
+
+Bit12 Color Scales:
+
+- `scale_color_bit12`: Discrete Color Scale Using Bit12 Colors
+- `scale_fill_bit12`: Discrete Fill Scale Using Bit12 Colors
+- `scale_color_bit12_continuous`: Continuous Color Scale Using Bit12
+  Colors
+- `scale_fill_bit12_continuous`: Continuous Fill Scale Using Bit12
+  Colors
+- `scale_color_bit12_distiller`: Distiller Color Scale Using Bit12
+  Colors
+- `scale_fill_bit12_distiller`: Distiller Fill Scale Using Bit12 Colors
+- `scale_color_bit12_spectrum`: Distiller Color Scale Across All Bit12
+  Colors
+- `scale_fill_bit12_spectrum`: Distiller Fill Scale Across All Bit12
+  Colors
 
 Flexoki Palettes:
 
@@ -374,14 +393,60 @@ names(flexoki_dark) |>
 
 <img src="man/figures/README-flexoki-03-1.png" width="960" />
 
+### Bit12 Color Scales
+
+The Bit12 color system provides a set of 12 distinct colors optimized
+for data visualization.
+
+``` r
+# Discrete colors example
+ggplot(mpg, aes(class, fill=class)) +
+  geom_bar() +
+  labs(title="Bit12 Color Palette",
+       subtitle="A vibrant 12-color categorical palette",
+       caption="Using scale_fill_bit12()") +
+  theme_ipsum() +
+  scale_fill_bit12() +
+  theme(legend.position="none")
+```
+
+<img src="man/figures/README-bit12-01-1.png" width="672" />
+
+``` r
+library(patchwork)
+
+# Taking a subset of the palette for this example
+names(bit12)[c(1,3,5,7,9,11)] |> 
+  map(\(.p) {
+    ggplot(grad_df, aes(x, y, fill=z)) +
+      geom_tile() +
+      scale_fill_bit12_continuous(palette = .p) +
+      labs(
+        x = NULL, y = NULL, title = .p
+      ) +
+      theme_ipsum(grid="") +
+      theme(legend.position = "none")
+  }) |> 
+  do.call(what = "wrap_plots") +
+  plot_layout(ncol = 3) +
+  plot_annotation(
+    title="Bit12 Continuous Color Scales",
+    subtitle="Selected continuous color palettes",
+    caption="Using scale_fill_bit12_continuous()",
+    theme = theme_ipsum(grid="")
+  )
+```
+
+<img src="man/figures/README-bit12-02-1.png" width="960" />
+
 ### hrbrthemes Metrics
 
 | Lang | \# Files |  (%) |  LoC |  (%) | Blank lines | (%) | \# Lines | (%) |
 |:-----|---------:|-----:|-----:|-----:|------------:|----:|---------:|----:|
-| R    |       22 | 0.41 | 1722 | 0.42 |         322 | 0.5 |     1123 | 0.5 |
-| SVG  |        4 | 0.07 |  310 | 0.08 |           0 | 0.0 |        0 | 0.0 |
+| R    |       23 | 0.44 | 1840 | 0.46 |         339 | 0.5 |     1290 | 0.5 |
+| SVG  |        2 | 0.04 |  150 | 0.04 |           0 | 0.0 |        0 | 0.0 |
 | JSON |        1 | 0.02 |   15 | 0.00 |           0 | 0.0 |        0 | 0.0 |
-| SUM  |       27 | 0.50 | 2047 | 0.50 |         322 | 0.5 |     1123 | 0.5 |
+| SUM  |       26 | 0.50 | 2005 | 0.50 |         339 | 0.5 |     1290 | 0.5 |
 
 {cloc} 📦 metrics for hrbrthemes
 

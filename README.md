@@ -6,7 +6,7 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 [![Signed
 by](https://img.shields.io/badge/Keybase-Verified-brightgreen.svg)](https://keybase.io/hrbrmstr)
 ![Signed commit
-%](https://img.shields.io/badge/Signed_Commits-7%25-lightgrey.svg)
+%](https://img.shields.io/badge/Signed_Commits-8%25-lightgrey.svg)
 
 [![cran
 checks](https://cranchecks.info/badges/worst/hrbrthemes.png)](https://cranchecks.info/pkgs/hrbrthemes)
@@ -155,6 +155,8 @@ Utilities:
 
 ``` r
 install.packages("hrbrthemes") # NOTE: CRAN version is 0.8.7
+# or
+remotes::install_git("https://codeberg.org/hrbrmstr/hrbrthemes.git")
 ```
 
 NOTE: To use the ‘remotes’ install options you will need to have the
